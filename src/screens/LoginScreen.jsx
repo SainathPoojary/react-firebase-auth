@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../firebaseConfig";
 
-const Container = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -47,7 +47,7 @@ const Button = styled.input`
   }
 `;
 
-const Form = styled.form`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -56,6 +56,13 @@ const Form = styled.form`
   @media (max-width: 500px) {
     width: 80%;
   }
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
 `;
 
 const Message = styled.p`
@@ -148,32 +155,30 @@ function LoginScreen() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <Container>
-      <Form
-        onSubmit={login}
-        onClick={(e) => {
-          e.preventDefault();
-        }}
-      >
-        <Title>Welcome back</Title>
-        <Input
-          type="email"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-          required
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-          required
-        />
-        <ErrorMessage style={{ display: errorMessage ? "block" : "none" }}>
-          {errorMessage}
-        </ErrorMessage>
-        <Button type="submit" value="Continue"></Button>
+    <Wrapper>
+      <Container>
+        <Form onSubmit={login}>
+          <Title>Welcome back</Title>
+          <Input
+            type="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            required
+          />
+          <Input
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            required
+          />
+          <ErrorMessage style={{ display: errorMessage ? "block" : "none" }}>
+            {errorMessage}
+          </ErrorMessage>
+          <Button type="submit" value="Continue"></Button>
+        </Form>
+
         <Message>
           Don't have an account?
           <Link
@@ -219,8 +224,8 @@ function LoginScreen() {
           </svg>
           Continue with Google
         </GoogleAuthButton>
-      </Form>
-    </Container>
+      </Container>
+    </Wrapper>
   );
 }
 
